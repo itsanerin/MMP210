@@ -3,6 +3,7 @@
     by Erin Brady
     version 1
     Sep 8 2018
+    Hard coded
 */
 
 
