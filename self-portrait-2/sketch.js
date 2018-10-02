@@ -101,16 +101,22 @@ function draw() {
     rect(bodyX, bodyY, bodyWidth, bodyHeight, 20);
     
     //clothes
-    fill('black');
+    var r = 50; //red
+    var g = map(mouseX, 0, width, 0, 50); //green
+    var b = map(mouseY, 0, height, 0, 50); //blue
+    fill(r, g, b);
+    stroke(r, g, b);
     rect(clothesX, clothesY, clothesWidth, clothesHeight, 5);
     
     //neckline
     noFill();
+    stroke(r, g, b);
     strokeWeight(4);
     arc(necklineX, necklineY, necklineRadius, necklineSAngle, necklineEAngle, PI);
     
     //ears
     fill(skin);
+    stroke('black');
     strokeWeight(1.5);
     ellipse(LearX, earsY, 25); //left ear
     ellipse(RearX, earsY + 1, 25); //right ear

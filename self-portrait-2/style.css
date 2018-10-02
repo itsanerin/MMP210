@@ -73,11 +73,11 @@ div.transbox p {
 
 canvas {
     display: block;
-    margin-top: 6%;
+    margin-top: 30px;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-    padding-top: 5%;
+    padding-top: 0;
     box-shadow: 10px 10px 5px grey;
 }
 	
@@ -85,3 +85,15 @@ img.align-left {
 float: left;
 margin-right: 10px;
 padding: 15px;}
+
+p{
+    background-color: #eae8e9;
+    color: black;
+    border: 3px double black;
+    border-radius: 5px;
+    width: 275px;
+    padding: 5px;
+    margin: 0 auto;
+    margin-top: 15px;
+    text-align: center;
+}
