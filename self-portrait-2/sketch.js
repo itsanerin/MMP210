@@ -125,7 +125,7 @@ function draw() {
         ellipse(headX,headY, headWidth,headHeight);
     
     //hair
-        fill(brown);
+        fill(r, g, b);
         strokeWeight(1.5);
         rect(hairX, hairY, hairWidth, hairHeight, 50);
     
@@ -139,7 +139,7 @@ function draw() {
         ellipse(LeyeX,eyesY, eyeSize); //left eye white
         ellipse(ReyeX,eyesY, eyeSize); //right eye white
     
-        fill(brown);
+        fill(r, g, b);
         ellipse(LeyeX, eyesY, eyeSize - 9); //left eye iris
         ellipse(ReyeX, eyesY, eyeSize - 9); //right eye iris
     
@@ -164,7 +164,7 @@ function draw() {
         triangle(noseX,noseY - 50, noseX - 13, noseY, noseX + 13, noseY); //top, left, right
 
     //lips
-        fill(lips);
+        fill(r, g, b);
         ellipse(mouthX, mouthY + 15, mouthWidth - 20, mouthHeight / 2);
     
     //mouth
