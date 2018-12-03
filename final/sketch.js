@@ -4,6 +4,7 @@ var girl2;
 var sky;
 var blah;
 var sparkleDom;
+var shootingStar;
 //var miterLimit;
 
 function preload() {
@@ -22,15 +23,28 @@ function setup() {
     l = 60;
 
 
-    sparkleDom = createImg("images/sparkles.gif");
+    /*sparkleDom = createImg("images/sparkles.gif");
     sparkleDom.size(639, 614);
-    sparkleDom.parent(document.getElementById('container'));
+    sparkleDom.parent(document.getElementById('container')); */
+
+    shootingStar = new ShootingStar();
+
+    frameRate(10);
 }
 
 function draw() {
 
     var eyeX = 280;
     var eyeY = 470;
+
+    //eye color change
+    if (mouseIsPressed) {
+        ellipse(350, 540, 300, 150);
+        var r = map(mouseY, 70, height, 0, 255); //red
+        var g = map(mouseX, 100, width, 0, 244); //green
+        var b = 244; //blue
+        fill(r, g, b);
+    }
 
     //background
     if (mouseIsPressed) {
@@ -39,13 +53,28 @@ function draw() {
         image(blah, 0, 0, width, height);
     }
 
-    /*   //sparkles gif
-       if (mouseIsPressed) {
-           sparkleDom.show();
-       } else {
-           sparkleDom.hide();
-       } */
-    sparkleDom.hide();
+   /* //sparkles gif
+    if (mouseIsPressed) {
+        sparkleDom.show();
+    } else {
+        sparkleDom.hide();
+    }
+    sparkleDom.hide(); */
+
+
+    //eye color change
+    if (mouseIsPressed) {
+        ellipse(300, 540, 250, 150);
+        fill(r, g, b);
+    }
+
+    //shooting star
+    if (mouseIsPressed) {
+        for (var i = 0; i < 5; i++) {
+            shootingStar.draw();
+        }
+    }
+
 
     //girl
     if (mouseIsPressed) {
@@ -56,6 +85,8 @@ function draw() {
 
     //3rd eyelashes
     if (mouseIsPressed) {
+        stroke('black');
+        strokeWeight(2.2);
         line(eyeX, eyeY, 250, 455);
         line(eyeX, eyeY, 250, 445);
         line(eyeX, eyeY, 260, 440);
@@ -65,7 +96,7 @@ function draw() {
         line(eyeX, eyeY, 300, 440);
         line(eyeX, eyeY, 310, 445);
         line(eyeX, eyeY, 310, 455);
-        
+
     }
 
     // 3rd eye white
@@ -79,9 +110,6 @@ function draw() {
 
     //3rd pupil
     if (mouseIsPressed) {
-        var r = 20; //red
-        var g = map(mouseX, 20, width, 0, 60); //green
-        var b = map(mouseY, 150, height, 0, 255); //blue
         fill(r, g, b);
         ellipse(eyeX, eyeY - 13, 40 / 2, 40 / 2);
     }
@@ -92,5 +120,24 @@ function draw() {
         ellipse(eyeX - 1 + mouseX / 150, eyeY - 15 + mouseY / 100, 6, 6);
     }
 
+}
 
+function ShootingStar() {
+    this.x = random(610 - 100);
+    this.y = random(614 - 400);
+    this.w = 6;
+    this.h = 4;
+}
+
+ShootingStar.prototype.draw = function () {
+   // for (var i = 0; i < 5; i++) {
+        noStroke();
+        fill('white');
+        ellipse(this.x, this.y, this.w, this.h);
+        if (this.h > 0) {
+            this.h -= 0.5;
+    //    }
+    }
+    this.w += 7;
+    this.x += 5;
 }
