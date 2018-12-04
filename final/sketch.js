@@ -1,35 +1,46 @@
-var l;
+//global variables
 var girl;
 var girl2;
 var sky;
 var blah;
 var sparkleDom;
 var shootingStar;
-//var miterLimit;
+var stars = [];
+var chatterMusic, calmMusic;
+var numStar = 1;
 
 function preload() {
+
+    //load images
     girl = loadImage("images/background-light.png");
     girl2 = loadImage("images/background2.png");
     sky = loadImage("images/sky.png");
     blah = loadImage("images/blah.png");
+
+    //load music
+    chatterMusic = loadSound("sounds/chatter.mp3");
+    calmMusic = loadSound("sounds/space.mp3");
+
+    //shooting stars
+    //    Stars = new Group();
 }
 
 
 function setup() {
     var canvas = createCanvas(610, 614);
     canvas.drawingContext.miterLimit = 2; // fix for stroke edges
-    canvas.parent(document.getElementById('container'));
-
-    l = 60;
+    canvas.parent(document.getElementById('container')); //add canvas to div container
 
 
     /*sparkleDom = createImg("images/sparkles.gif");
     sparkleDom.size(639, 614);
     sparkleDom.parent(document.getElementById('container')); */
 
-    shootingStar = new ShootingStar();
+    for (var i = 0; i < numStar; i++) {
+        stars.push(new ShootingStar());
+    }
 
-    frameRate(10);
+    frameRate(50);
 }
 
 function draw() {
@@ -37,7 +48,7 @@ function draw() {
     var eyeX = 280;
     var eyeY = 470;
 
-    //eye color change
+    //right eye color change
     if (mouseIsPressed) {
         ellipse(350, 540, 300, 150);
         var r = map(mouseY, 70, height, 0, 255); //red
@@ -53,16 +64,16 @@ function draw() {
         image(blah, 0, 0, width, height);
     }
 
-   /* //sparkles gif
-    if (mouseIsPressed) {
-        sparkleDom.show();
-    } else {
-        sparkleDom.hide();
-    }
-    sparkleDom.hide(); */
+    /* //sparkles gif
+     if (mouseIsPressed) {
+         sparkleDom.show();
+     } else {
+         sparkleDom.hide();
+     }
+     sparkleDom.hide(); */
 
 
-    //eye color change
+    //left eye color change
     if (mouseIsPressed) {
         ellipse(300, 540, 250, 150);
         fill(r, g, b);
@@ -70,8 +81,12 @@ function draw() {
 
     //shooting star
     if (mouseIsPressed) {
-        for (var i = 0; i < 5; i++) {
-            shootingStar.draw();
+        for (var i = 0; i < numStar; i++) {
+            stars[i].draw();
+        }
+    } else {
+        for (var i = 0; i < numStar; i++) {
+            stars[i].reset();
         }
     }
 
@@ -108,36 +123,59 @@ function draw() {
         arc(eyeX, eyeY, 55, 50, PI + 0.5, -0.5);
     }
 
-    //3rd pupil
+    //3rd eye iris
     if (mouseIsPressed) {
         fill(r, g, b);
         ellipse(eyeX, eyeY - 13, 40 / 2, 40 / 2);
     }
 
-    //3rd eye shine
+    //3rd eye pupil
     if (mouseIsPressed) {
         fill('white');
         ellipse(eyeX - 1 + mouseX / 150, eyeY - 15 + mouseY / 100, 6, 6);
     }
 
+
+    //play music
+    if (mouseIsPressed) {
+        if (!calmMusic.isPlaying()) {
+            calmMusic.play();
+        }
+        chatterMusic.stop();
+    } else {
+        calmMusic.stop();
+        if (!chatterMusic.isPlaying()) {
+            chatterMusic.play();
+        }
+    }
+
+
 }
 
+//shooting stars
 function ShootingStar() {
     this.x = random(610 - 100);
     this.y = random(614 - 400);
     this.w = 6;
     this.h = 4;
-}
-
-ShootingStar.prototype.draw = function () {
-   // for (var i = 0; i < 5; i++) {
-        noStroke();
-        fill('white');
-        ellipse(this.x, this.y, this.w, this.h);
-        if (this.h > 0) {
-            this.h -= 0.5;
-    //    }
+    this.draw = function () {
+        for (var i = 0; i < numStar; i++) {
+            noStroke();
+            fill('white');
+            ellipse(this.x, this.y, this.w, this.h);
+            if (this.h > 0) {
+                this.h -= 0.1;
+            } else {
+                this.reset();
+            }
+        }
+        this.w += 7;
+        this.x += 5;
     }
-    this.w += 7;
-    this.x += 5;
+    this.reset = function () {
+        this.x = random(610 - 100);
+        this.y = random(614 - 400);
+        this.w = 6;
+        this.h = 4;
+    }
 }
